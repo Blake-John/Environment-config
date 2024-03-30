@@ -6,6 +6,11 @@ sudo apt install -y stlink-tools
 
 sudo apt install -y libncursesw5
 
+if [ -e /opt/arm_toolchain ]; then
+	echo "arm_toolchain has been installed !"
+	exit 0
+fi
+
 if [ -e arm-none-eabi.tar.xz ]; then
 	echo "Archive file exist"
 else
@@ -36,8 +41,10 @@ if [ $is_setup == "yes" ]; then
 	if [ $self_shell != "fish" ]; then
 		rc=rc
 		echo "export PATH=$path_to_install/bin:$PATH" >> ~/.$self_shell$rc
+		source ~/.$self_shell$rc
 	else
 		echo "set PATH $path_to_install/bin $PATH" >> ~/.config/fish/config.fish
+		source ~/.$self_shell$rc
 	fi
 
 else
