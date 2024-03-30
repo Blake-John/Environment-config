@@ -4,6 +4,8 @@ sudo apt update
 sudo apt install -y openocd
 sudo apt install -y stlink-tools
 
+sudo apt install -y libncursesw5
+
 if [ -e arm-none-eabi.tar.xz ]; then
 	echo "Archive file exist"
 else
@@ -15,6 +17,7 @@ read path_to_install
 
 if [ -z $path_to_install ]; then
 	path_to_install=/opt/arm_toolchain
+fi
 
 tar -xf arm-none-eabi.tar.xz
 target=$(ls | grep arm-gnu)
@@ -32,9 +35,9 @@ if [ $is_setup == "yes" ]; then
 
 	if [ $self_shell != "fish" ]; then
 		rc=rc
-		echo "export PATH=$path_to_install:$PATH" >> ~/.$self_shell$rc
+		echo "export PATH=$path_to_install/bin:$PATH" >> ~/.$self_shell$rc
 	else
-		echo "set PATH $path_to_install $PATH" >> ~/.config/fish/config.fish
+		echo "set PATH $path_to_install/bin $PATH" >> ~/.config/fish/config.fish
 	fi
 
 else
@@ -46,6 +49,7 @@ read -p "(yes/no)" is_clean
 
 if [ $is_clean == "yes" ]; then
 	rm -r arm-none-eabi.tar.xz
+fi
 
 echo "You can check the installation by : "
 echo "arm-none-eabi-gcc --version"
