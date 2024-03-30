@@ -4,7 +4,11 @@ sudo apt update
 sudo apt install -y openocd
 sudo apt install -y stlink-tools
 
-wget https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz\?rev\=e434b9ea4afc4ed7998329566b764309\&hash\=CA590209F5774EE1C96E6450E14A3E26 -O arm-none-eabi.tar.xz
+if [ -e arm-none-eabi.tar.xz ]; then
+	echo "Archive file exist"
+else
+	wget https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz\?rev\=e434b9ea4afc4ed7998329566b764309\&hash\=CA590209F5774EE1C96E6450E14A3E26 -O arm-none-eabi.tar.xz
+fi
 
 echo "Please choose the position to install (recommend and default : /opt/arm_toolchain)"
 read path_to_install
